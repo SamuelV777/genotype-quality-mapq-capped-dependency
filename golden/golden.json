@@ -1,0 +1,728 @@
+{
+  "task": "task-02",
+  "output_key": "output",
+  "rounding": 4,
+  "tolerance": {
+    "rel": 0.001,
+    "abs": 0.0001
+  },
+  "cases": [
+    {
+      "id": "D1",
+      "category": "discriminating",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 20,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 8.48
+      },
+      "called_genotype_x_count": 2,
+      "t1_off": 28.9601,
+      "t2_off": 6.0958,
+      "naive_baseline": 34.956,
+      "recall_baseline": 5.2462,
+      "note": "Cap 40 -> 20 flips the call from het to hom; naive stays het"
+    },
+    {
+      "id": "D2",
+      "category": "discriminating",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 10,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 12.4548
+      },
+      "called_genotype_x_count": 2,
+      "t1_off": 28.9601,
+      "t2_off": 17.7403,
+      "naive_baseline": 34.956,
+      "recall_baseline": 11.3395,
+      "note": "Deeper cap: output is not monotone in value_c"
+    },
+    {
+      "id": "D3",
+      "category": "discriminating",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          35,
+          38,
+          40,
+          25,
+          30
+        ],
+        "value_b": "xxyyy",
+        "value_c": 15,
+        "value_d": 0.2
+      },
+      "expected": {
+        "output": 10.189
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 49.5939,
+      "t2_off": 12.4704,
+      "naive_baseline": 54.9293,
+      "recall_baseline": 19.3943,
+      "note": "All reads capped to 15: raw qualities become irrelevant"
+    },
+    {
+      "id": "D4",
+      "category": "discriminating",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          45,
+          20,
+          50,
+          15,
+          38,
+          42
+        ],
+        "value_b": "xyxyxy",
+        "value_c": 25,
+        "value_d": 0.05
+      },
+      "expected": {
+        "output": 24.7657
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 41.9995,
+      "t2_off": 32.0744,
+      "naive_baseline": 49.1619,
+      "recall_baseline": 37.7108,
+      "note": "Partial cap: only reads with Q > 25 change"
+    },
+    {
+      "id": "C1",
+      "category": "control",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 28.9601
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 28.9601,
+      "t2_off": 34.956,
+      "naive_baseline": 34.956,
+      "recall_baseline": 40.7141,
+      "note": "value_c above every quality: cap inactive (pair with D1)"
+    },
+    {
+      "id": "C2",
+      "category": "control",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          20,
+          25,
+          18
+        ],
+        "value_b": "xyy",
+        "value_c": 30,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 14.7175
+      },
+      "called_genotype_x_count": 0,
+      "t1_off": 14.7175,
+      "t2_off": 15.2783,
+      "naive_baseline": 15.2783,
+      "recall_baseline": 11.0881,
+      "note": "value_c above every quality, different pileup"
+    },
+    {
+      "id": "D5",
+      "category": "discriminating",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "value_b": "xxxxyyyy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 41.5384
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 41.5384,
+      "t2_off": 65.9393,
+      "naive_baseline": 65.9393,
+      "recall_baseline": 59.9717,
+      "note": "4+4 equal reads: independent model overstates het quality"
+    },
+    {
+      "id": "D6",
+      "category": "discriminating",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "value_b": "xxxxxyyy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 26.1379
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 26.1379,
+      "t2_off": 38.9545,
+      "naive_baseline": 38.9545,
+      "recall_baseline": 43.5876,
+      "note": "5+3 equal reads"
+    },
+    {
+      "id": "D7",
+      "category": "discriminating",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          35,
+          32,
+          28,
+          25,
+          22,
+          20,
+          38,
+          36
+        ],
+        "value_b": "xxxxxyyy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 32.0268
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 32.0268,
+      "t2_off": 42.9846,
+      "naive_baseline": 42.9846,
+      "recall_baseline": 49.4538,
+      "note": "Unequal qualities: sort order inside a group matters"
+    },
+    {
+      "id": "D8",
+      "category": "discriminating",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 60,
+        "value_d": 0.2
+      },
+      "expected": {
+        "output": 34.4464
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 34.4464,
+      "t2_off": 38.9458,
+      "naive_baseline": 38.9458,
+      "recall_baseline": 46.1885,
+      "note": "Known-site prior r = 0.2"
+    },
+    {
+      "id": "C3",
+      "category": "control",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30
+        ],
+        "value_b": "xy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 2.2173
+      },
+      "called_genotype_x_count": 0,
+      "t1_off": 2.2173,
+      "t2_off": 2.2173,
+      "naive_baseline": 2.2173,
+      "recall_baseline": 1.7624,
+      "note": "One read per group: rank 0 only, dependency inactive"
+    },
+    {
+      "id": "C4",
+      "category": "control",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          35
+        ],
+        "value_b": "y",
+        "value_c": 60,
+        "value_d": 0.2
+      },
+      "expected": {
+        "output": 6.9842
+      },
+      "called_genotype_x_count": 0,
+      "t1_off": 6.9842,
+      "t2_off": 6.9842,
+      "naive_baseline": 6.9842,
+      "recall_baseline": 6.9853,
+      "note": "Single read: dependency inactive"
+    },
+    {
+      "id": "D9",
+      "category": "discriminating",
+      "twist": "T1+T2",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyyyy",
+        "value_c": 20,
+        "value_d": 0.2
+      },
+      "expected": {
+        "output": 33.8059
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 97.3637,
+      "t2_off": 50.0716,
+      "naive_baseline": 129.8987,
+      "recall_baseline": 52.0805,
+      "note": "Cap makes the group all-equal, then dependency decays it"
+    },
+    {
+      "id": "D10",
+      "category": "discriminating",
+      "twist": "T1+T2",
+      "inputs": {
+        "value_a": [
+          50,
+          45,
+          40,
+          35,
+          30,
+          25,
+          20,
+          15
+        ],
+        "value_b": "xyxyxyxy",
+        "value_c": 30,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 30.9408
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 50.8983,
+      "t2_off": 48.5845,
+      "naive_baseline": 68.9385,
+      "recall_baseline": 49.3132,
+      "note": "Cap changes the sort keys used by the dependency"
+    },
+    {
+      "id": "D11",
+      "category": "discriminating",
+      "twist": "T1+T2",
+      "inputs": {
+        "value_a": [
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "value_b": "xxxxxxxyyy",
+        "value_c": 25,
+        "value_d": 0.01
+      },
+      "expected": {
+        "output": 17.4387
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 107.301,
+      "t2_off": 28.054,
+      "naive_baseline": 132.951,
+      "recall_baseline": 38.0559,
+      "note": "High raw quality, cap 25, 7+3 reads"
+    },
+    {
+      "id": "F1",
+      "category": "discriminating",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 5,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 5.0143
+      },
+      "called_genotype_x_count": 2,
+      "t1_off": 28.9601,
+      "t2_off": 7.5162,
+      "naive_baseline": 34.956,
+      "recall_baseline": 7.4625,
+      "note": "value_c ladder step 1"
+    },
+    {
+      "id": "F2",
+      "category": "discriminating",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 30,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 10.8431
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 28.9601,
+      "t2_off": 15.1063,
+      "naive_baseline": 34.956,
+      "recall_baseline": 22.2393,
+      "note": "value_c ladder step 2"
+    },
+    {
+      "id": "F3",
+      "category": "control",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "xxxxyy",
+        "value_c": 40,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 28.9601
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 28.9601,
+      "t2_off": 34.956,
+      "naive_baseline": 34.956,
+      "recall_baseline": 40.7141,
+      "note": "value_c ladder step 3 (cap = Q, inactive)"
+    },
+    {
+      "id": "F4",
+      "category": "discriminating",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "value_b": "xxxxxxyy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 5.7881
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 5.7881,
+      "t2_off": 9.478,
+      "naive_baseline": 9.478,
+      "recall_baseline": 18.9594,
+      "note": "group-size ladder: 6+2"
+    },
+    {
+      "id": "F5",
+      "category": "control",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30,
+          30
+        ],
+        "value_b": "xxxxxxxy",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 21.0714
+      },
+      "called_genotype_x_count": 2,
+      "t1_off": 21.0714,
+      "t2_off": 21.0714,
+      "naive_baseline": 21.0714,
+      "recall_baseline": 12.3004,
+      "note": "group-size ladder: 7+1 (only the x group decays; small effect)"
+    },
+    {
+      "id": "E1",
+      "category": "edge",
+      "twist": "none",
+      "inputs": {
+        "value_a": [
+          1
+        ],
+        "value_b": "x",
+        "value_c": 1,
+        "value_d": 0.5
+      },
+      "expected": {
+        "output": 3.0103
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 3.0103,
+      "t2_off": 3.0103,
+      "naive_baseline": 3.0103,
+      "recall_baseline": 1.9238,
+      "note": "Minimal input: one read, lowest qualities"
+    },
+    {
+      "id": "E2",
+      "category": "edge",
+      "twist": "none",
+      "inputs": {
+        "value_a": [
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "value_b": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "value_c": 60,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 177.5001
+      },
+      "called_genotype_x_count": 2,
+      "t1_off": 177.5001,
+      "t2_off": 177.5001,
+      "naive_baseline": 177.5001,
+      "recall_baseline": 177.5004,
+      "note": "Maximum depth, one allele only: no errors under the call, twists invisible"
+    },
+    {
+      "id": "E3",
+      "category": "edge",
+      "twist": "T1",
+      "inputs": {
+        "value_a": [
+          60,
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "value_b": "xxxyyy",
+        "value_c": 1,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 2.9963
+      },
+      "called_genotype_x_count": 0,
+      "t1_off": 106.2926,
+      "t2_off": 2.9948,
+      "naive_baseline": 131.9426,
+      "recall_baseline": 3.0078,
+      "note": "value_c = 1: every read nearly uninformative"
+    },
+    {
+      "id": "E4",
+      "category": "edge",
+      "twist": "T2",
+      "inputs": {
+        "value_a": [
+          30,
+          30,
+          30,
+          30
+        ],
+        "value_b": "xxyy",
+        "value_c": 60,
+        "value_d": 0.99
+      },
+      "expected": {
+        "output": 63.4238
+      },
+      "called_genotype_x_count": 1,
+      "t1_off": 63.4238,
+      "t2_off": 67.9238,
+      "naive_baseline": 67.9238,
+      "recall_baseline": 71.1967,
+      "note": "Prior near 1: heterozygote dominates"
+    },
+    {
+      "id": "E5",
+      "category": "edge",
+      "twist": "T1+T2",
+      "inputs": {
+        "value_a": [
+          40,
+          40,
+          40,
+          40,
+          40,
+          40
+        ],
+        "value_b": "yyyyxx",
+        "value_c": 20,
+        "value_d": 0.001
+      },
+      "expected": {
+        "output": 8.48
+      },
+      "called_genotype_x_count": 0,
+      "t1_off": 28.9601,
+      "t2_off": 6.0958,
+      "naive_baseline": 34.956,
+      "recall_baseline": 5.2462,
+      "note": "Label swap of D1: output is symmetric in x/y"
+    }
+  ]
+}
